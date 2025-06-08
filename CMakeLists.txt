@@ -32,10 +32,17 @@ add_executable(TaskMaster ${SOURCES} ${HEADERS})
 # Link threads
 target_link_libraries(TaskMaster PRIVATE Threads::Threads)
 
+# Explicitly set the subsystem to 'console'
+set_target_properties(TaskMaster PROPERTIES LINK_FLAGS "-mconsole")
+
 # Optional: Add test executable (if needed)
 # Enable testing and add executable for test
 enable_testing()
 add_executable(TaskMasterTests tests/scheduler_tests.cpp)
 target_include_directories(TaskMasterTests PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(TaskMasterTests PRIVATE Threads::Threads)
+
+# Explicitly set the subsystem to 'console' for tests
+set_target_properties(TaskMasterTests PROPERTIES LINK_FLAGS "-mconsole")
+
 add_test(NAME SchedulerTests COMMAND TaskMasterTests)
